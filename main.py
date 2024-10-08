@@ -10,7 +10,7 @@ aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
 parameters = cv2.aruco.DetectorParameters()
 
 # Open video file
-cap = cv2.VideoCapture('recorded_video.avi')
+cap = cv2.VideoCapture('coba8.mkv')
 if not cap.isOpened():
     print("Error: Cannot open video file")
     exit()
@@ -22,7 +22,7 @@ pattern_size_cm = 10.5
 converter_value = {}
 
 # Open CSV file for writing
-with open('oscillation_data.csv', mode='w', newline='') as csv_file:
+with open('oscillation_data_5.csv', mode='w', newline='') as csv_file:
     csv_writer = csv.writer(csv_file)
     # CSV Header
     csv_writer.writerow(['time', 'x_id_0', 'y_id_0', 'x_ref_id_0', 'y_ref_id_0', 'delta_x_id_0', 'delta_y_id_0',
@@ -71,7 +71,7 @@ with open('oscillation_data.csv', mode='w', newline='') as csv_file:
                     delta_x_cm = delta_x * converter_value[marker_id[0]]
                     delta_y_cm = delta_y * converter_value[marker_id[0]]
 
-                    current_data.extend([curr_x, curr_y, ref_x, ref_y, delta_x_cm, delta_y_cm])
+                    current_data.extend([curr_x, curr_y, ref_x, ref_y, round(delta_x_cm,3), round(delta_y_cm,3)])
 
                     if marker_id[0] == 0:
                         id_0_present = True
@@ -104,7 +104,7 @@ column_names = [
 ]
 
 # Load the CSV file with the specified column names
-data = pd.read_csv('oscillation_data.csv', header=None, names=column_names, on_bad_lines='skip')
+data = pd.read_csv('oscillation_data_5.csv', header=None, names=column_names, on_bad_lines='skip')
 
 # Convert relevant columns to numeric, handling NaN values
 data['time'] = pd.to_numeric(data['time'], errors='coerce')
@@ -229,5 +229,5 @@ plt.title(f'Combined Oscillation of Markers\n'
           f'Min Delta Y ID 0: {min_delta_y_id_0:.2f}cm at time {min_time:.2f}seconds, Delta Y ID 1: {delta_y_id_1_at_min:.2f}cm, Delta Y ID 2: {delta_y_id_2_at_min:.2f}cm')
 plt.xlabel('Time (s)')
 plt.ylabel('Oscillation (pixels)')
-plt.savefig('combined_oscillation_plot.png')
+plt.savefig('combined_oscillation_plot_5.png')
 plt.show()
