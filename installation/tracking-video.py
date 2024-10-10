@@ -10,7 +10,7 @@ aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
 parameters = cv2.aruco.DetectorParameters()
 
 # Open video file
-cap = cv2.VideoCapture('coba8.mkv')
+cap = cv2.VideoCapture('MEJA _1_4.5HZ.mkv')
 if not cap.isOpened():
     print("Error: Cannot open video file")
     exit()
